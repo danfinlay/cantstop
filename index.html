@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Roller</title>
+
+    <script>
+        function rollDice() {
+            return 1 + Math.floor(Math.random() * 6);
+        }
+
+        function getPairs(dice) {
+            return [
+                [dice[0] + dice[1], dice[2] + dice[3]],
+                [dice[0] + dice[2], dice[1] + dice[3]],
+                [dice[0] + dice[3], dice[1] + dice[2]]
+            ];
+        }
+
+        function rollDiceAndDisplay() {
+            // Roll four dice
+            let dice = [rollDice(), rollDice(), rollDice(), rollDice()];
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = '<h2>Rolled Dice: ' + dice.join(', ') + '</h2>';
+
+            // Get all pairs
+            let pairs = getPairs(dice);
+            // Display each pair and the columns they correspond to
+            pairs.forEach((pair, index) => {
+                resultsDiv.innerHTML += `<h3>Pair ${index + 1}: ${pair[0]} and ${pair[1]}</h3>`;
+            });
+        }
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,49 +47,5 @@
     <h1>Dice Roller</h1>
     <button onclick="rollDiceAndDisplay()">Roll Dice</button>
     <div id="results"></div>
-
-    <script>
-        function rollDice() {
-            return 1 + Math.floor(Math.random() * 6);
-        }
-
-        function getAllPairSums(dice) {
-            let sums = [];
-            for (let i = 0; i < dice.length; i++) {
-                for (let j = i + 1; j < dice.length; j++) {
-                    sums.push(dice[i] + dice[j]);
-                }
-            }
-            return sums;
-        }
-
-function rollDice() {
-    return 1 + Math.floor(Math.random() * 6);
-}
-
-function getPairs(dice) {
-    return [
-        [dice[0] + dice[1], dice[2] + dice[3]],
-        [dice[0] + dice[2], dice[1] + dice[3]],
-        [dice[0] + dice[3], dice[1] + dice[2]]
-    ];
-}
-
-function rollDiceAndDisplay() {
-    // Roll four dice
-    let dice = [rollDice(), rollDice(), rollDice(), rollDice()];
-    let resultsDiv = document.getElementById("results");
-    resultsDiv.innerHTML = '<h2>Rolled Dice: ' + dice.join(', ') + '</h2>';
-
-    // Get all pairs
-    let pairs = getPairs(dice);
-    // Display each pair and the columns they correspond to
-    pairs.forEach((pair, index) => {
-        resultsDiv.innerHTML += `<h3>Pair ${index + 1}: ${pair[0]} and ${pair[1]}</h3>`;
-    });
-}
-
-</html>
-   </script>
 </body>
 </html>
