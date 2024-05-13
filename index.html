@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dice Roller</h1>
+    <button onclick="rollDiceAndDisplay()">Roll Dice</button>
+    <div id="results"></div>
+
+    <script>
+        function rollDice() {
+            return 1 + Math.floor(Math.random() * 6);
+        }
+
+        function getAllPairSums(dice) {
+            let sums = [];
+            for (let i = 0; i < dice.length; i++) {
+                for (let j = i + 1; j < dice.length; j++) {
+                    sums.push(dice[i] + dice[j]);
+                }
+            }
+            return sums;
+        }
+
+        function rollDiceAndDisplay() {
+            // Roll four dice
+            let dice = [rollDice(), rollDice(), rollDice(), rollDice()];
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = '<h2>Rolled Dice: ' + dice.join(', ') + '</h2>';
+
+            // Get all pair sums
+            let pairSums = getAllPairSums(dice);
+            resultsDiv.innerHTML += '<h2>All Possible Pair Sums: ' + pairSums.join(', ') + '</h2>';
+        }
+    </script>
+</body>
+</html>
