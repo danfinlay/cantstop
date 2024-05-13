@@ -34,16 +34,33 @@
             return sums;
         }
 
-        function rollDiceAndDisplay() {
-            // Roll four dice
-            let dice = [rollDice(), rollDice(), rollDice(), rollDice()];
-            let resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = '<h2>Rolled Dice: ' + dice.join(', ') + '</h2>';
+function rollDice() {
+    return 1 + Math.floor(Math.random() * 6);
+}
 
-            // Get all pair sums
-            let pairSums = getAllPairSums(dice);
-            resultsDiv.innerHTML += '<h2>All Possible Pair Sums: ' + pairSums.join(', ') + '</h2>';
-        }
-    </script>
+function getPairs(dice) {
+    return [
+        [dice[0] + dice[1], dice[2] + dice[3]],
+        [dice[0] + dice[2], dice[1] + dice[3]],
+        [dice[0] + dice[3], dice[1] + dice[2]]
+    ];
+}
+
+function rollDiceAndDisplay() {
+    // Roll four dice
+    let dice = [rollDice(), rollDice(), rollDice(), rollDice()];
+    let resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = '<h2>Rolled Dice: ' + dice.join(', ') + '</h2>';
+
+    // Get all pairs
+    let pairs = getPairs(dice);
+    // Display each pair and the columns they correspond to
+    pairs.forEach((pair, index) => {
+        resultsDiv.innerHTML += `<h3>Pair ${index + 1}: ${pair[0]} and ${pair[1]}</h3>`;
+    });
+}
+
+</html>
+   </script>
 </body>
 </html>
